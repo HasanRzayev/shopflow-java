@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  shopflow-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shopflow-app
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=shopflow_db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - RABBIT_HOST=rabbitmq
+      - RABBIT_PORT=5672
+      - RABBIT_USER=guest
+      - RABBIT_PASSWORD=guest
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: shopflow-postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: shopflow_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - shopflow_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: shopflow-redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - shopflow_redis_data:/data
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: shopflow-rabbitmq
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  shopflow_postgres_data:
+  shopflow_redis_data:

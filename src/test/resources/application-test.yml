@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:shopflow_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+
+app:
+  security:
+    jwt:
+      secret: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+      expiration-ms: 3600000
+      refresh-expiration-ms: 604800000
+  rabbitmq:
+    exchange: shopflow.events.exchange
+    queues:
+      inventory: shopflow.inventory.queue
+      notification: shopflow.notification.queue
+      payment: shopflow.payment.queue
