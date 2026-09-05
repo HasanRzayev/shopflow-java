@@ -30,4 +30,4 @@ databases:
   - name: shopflow-postgres
     plan: free
     databaseName: shopflow_db
-    user: postgres
+    user: shopflow_user
