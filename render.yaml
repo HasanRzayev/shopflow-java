@@ -7,27 +7,21 @@ services:
     envVars:
       - key: DB_HOST
         fromDatabase:
-          name: shopflow-postgres
+          name: fincore-postgres
           property: host
       - key: DB_PORT
         fromDatabase:
-          name: shopflow-postgres
+          name: fincore-postgres
           property: port
       - key: DB_NAME
         fromDatabase:
-          name: shopflow-postgres
+          name: fincore-postgres
           property: database
       - key: DB_USER
         fromDatabase:
-          name: shopflow-postgres
+          name: fincore-postgres
           property: user
       - key: DB_PASSWORD
         fromDatabase:
-          name: shopflow-postgres
+          name: fincore-postgres
           property: password
-
-databases:
-  - name: shopflow-postgres
-    plan: free
-    databaseName: shopflow_db
-    user: shopflow_user
