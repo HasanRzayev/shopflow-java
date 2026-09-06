@@ -9,24 +9,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #0a0a0d;
-            --bg-surface: #131317;
-            --bg-card: #1a1a22;
-            --bg-input: #101014;
-            --border: #262633;
-            --border-hover: #3d3d52;
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --text-dim: #71717a;
-            --accent: #f59e0b;
-            --accent-hover: #d97706;
-            --accent-glow: rgba(245, 158, 11, 0.18);
-            --success: #10b981;
-            --danger: #ef4444;
+            --bg-base: #fafaf9;
+            --bg-surface: #ffffff;
+            --bg-card: #ffffff;
+            --bg-input: #ffffff;
+            --border: #e7e5e4;
+            --border-hover: #d6d3d1;
+            --text-main: #1c1917;
+            --text-muted: #57534e;
+            --text-dim: #a8a29e;
+            --accent: #ea580c;
+            --accent-hover: #c2410c;
+            --accent-glow: rgba(234, 88, 12, 0.15);
+            --success: #059669;
+            --danger: #dc2626;
             --font: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
             --radius-sm: 6px;
             --radius-md: 10px;
             --radius-lg: 16px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
         }
 
         * {
@@ -43,15 +46,17 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            -webkit-font-smoothing: antialiased;
         }
 
         header {
-            background: rgba(19, 19, 23, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 50;
+            box-shadow: var(--shadow-sm);
         }
 
         .header-container {
@@ -70,8 +75,8 @@
         }
 
         .logo-badge {
-            background: linear-gradient(135deg, #f59e0b, #b45309);
-            color: #1a1304;
+            background: linear-gradient(135deg, #ea580c, #c2410c);
+            color: #ffffff;
             font-weight: 800;
             font-size: 13px;
             padding: 4px 10px;
@@ -83,6 +88,7 @@
             font-size: 19px;
             font-weight: 700;
             letter-spacing: -0.3px;
+            color: var(--text-main);
         }
 
         .logo-subtitle {
@@ -113,7 +119,7 @@
         }
 
         .btn-ghost {
-            background: transparent;
+            background: var(--bg-surface);
             color: var(--text-muted);
             border-color: var(--border);
         }
@@ -121,17 +127,17 @@
         .btn-ghost:hover {
             color: var(--text-main);
             border-color: var(--border-hover);
-            background: var(--bg-surface);
+            background: #f5f5f4;
         }
 
         .btn-accent {
             background: var(--accent);
-            color: #1a1304;
+            color: #ffffff;
         }
 
         .btn-accent:hover {
             background: var(--accent-hover);
-            box-shadow: 0 0 16px var(--accent-glow);
+            box-shadow: 0 4px 12px var(--accent-glow);
         }
 
         main {
@@ -152,15 +158,15 @@
         }
 
         .alert-success {
-            background: rgba(16, 185, 129, 0.12);
-            color: #6ee7b7;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
         }
 
         .alert-error {
-            background: rgba(239, 68, 68, 0.12);
-            color: #fca5a5;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
         }
 
         /* Hero Controls */
@@ -175,6 +181,7 @@
             gap: 16px;
             align-items: center;
             justify-content: space-between;
+            box-shadow: var(--shadow-sm);
         }
 
         .search-input {
@@ -188,10 +195,12 @@
             font-size: 14px;
             border-radius: var(--radius-sm);
             outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
 
         .search-input:focus {
             border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
 
         .price-filters {
@@ -210,6 +219,11 @@
             font-size: 13px;
             border-radius: var(--radius-sm);
             outline: none;
+            transition: border-color 0.15s ease;
+        }
+
+        .price-input:focus {
+            border-color: var(--accent);
         }
 
         /* Layout Grid */
@@ -240,12 +254,14 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.15s, border-color 0.15s;
+            transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+            box-shadow: var(--shadow-sm);
         }
 
         .product-card:hover {
             border-color: var(--border-hover);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .product-sku {
@@ -262,6 +278,7 @@
             font-weight: 700;
             margin-bottom: 8px;
             letter-spacing: -0.2px;
+            color: var(--text-main);
         }
 
         .product-desc {
@@ -290,8 +307,9 @@
             font-weight: 600;
             padding: 2px 6px;
             border-radius: 4px;
-            background: var(--bg-input);
-            color: var(--text-dim);
+            background: #f5f5f4;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
         }
 
         /* Cart & Orders Sidebar */
@@ -306,6 +324,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         .panel-title {
@@ -316,6 +335,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            color: var(--text-main);
+            background: #fafaf9;
         }
 
         .panel-body {
@@ -336,6 +357,7 @@
         }
 
         .status-badge {
+            display: inline-block;
             font-size: 11px;
             font-weight: 700;
             padding: 2px 8px;
@@ -344,11 +366,11 @@
             letter-spacing: 0.5px;
         }
 
-        .status-pending { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
-        .status-confirmed { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-        .status-shipped { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
-        .status-delivered { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
-        .status-cancelled { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .status-pending { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+        .status-confirmed { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+        .status-shipped { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .status-delivered { background: #faf5ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+        .status-cancelled { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
 
         .empty-hint {
             text-align: center;
@@ -364,6 +386,7 @@
             font-size: 12px;
             color: var(--text-dim);
             background: var(--bg-surface);
+            margin-top: auto;
         }
     </style>
 </head>
